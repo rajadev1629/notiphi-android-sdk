@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Notiphi Android SDK : Your message - Anywhere Anytime." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Notiphi Android SDK</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/alokmishra/notiphi-android-sdk">View on GitHub</a>
+
+          <h1 id="project_title">Notiphi Android SDK</h1>
+          <h2 id="project_tagline">Your message - Anywhere Anytime.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/alokmishra/notiphi-android-sdk/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/alokmishra/notiphi-android-sdk/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Steps to integrate the sdk to your Android project.</h3>
+
+<p>After adding the JAR’s into your project, modify your AndroidManifest.xml file using these steps:</p>
+
+<ol>
+<li>Android Version: Set the minimum android SDK version to 10 (Android 2.3.3) or higher. Notiphi library will not work if minimum android SDK version is less than 10.</li>
+</ol><pre><code>&lt;uses-sdk android:minSdkVersion="10" /&gt;
+</code></pre>
+
+<ol>
+<li>Permissions: Following permission are required in manifest file for library to work properly. So please declare the following permission in AndroidManifest.xml and replace the occurrence of YOUR_PACKAGE_NAME by your application's package name.</li>
+</ol><pre><code>&lt;permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE"             
+   android:protectionLevel="signature" /&gt;
+&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
+&lt;uses-permission android:name="android.permission.READ_PHONE_STATE" /&gt;
+&lt;uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /&gt;
+&lt;uses-permission android:name="YOUR_PACKAGE_NAME.permission.C2D_MESSAGE" /&gt;
+&lt;uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /&gt;
+&lt;uses-permission android:name="android.permission.GET_ACCOUNTS" /&gt;
+&lt;uses-permission android:name="android.permission.WAKE_LOCK" /&gt;
+&lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /&gt;
+&lt;uses-permission android:name="android.permission.VIBRATE"/&gt;
+</code></pre>
+
+<ol>
+<li>Notiphi Service and Receivers: Please add the following xml fragment into AndroidManifest.xml under  tag and replace YOUR_PACKAGE_NAME with your application’s package name</li>
+</ol><pre><code>    &lt;receiver android:name="com.notikum.notifypassive.receivers.LocationAlertReceiver"&gt;&lt;/receiver&gt;
+        &lt;receiver android:name="com.notikum.notifypassive.receivers.BootCompleteReceiver"&gt;
+            &lt;intent-filter&gt;
+                    &lt;action android:name="android.intent.action.BOOT_COMPLETED" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+        &lt;receiver android:name="com.notikum.notifypassive.services.NotiphiGCMMessageReceiver"
+               android:permission="com.google.android.c2dm.permission.SEND"&gt;
+            &lt;intent-filter&gt;
+                    &lt;action android:name="com.google.android.c2dm.intent.RECEIVE"/&gt;
+                &lt;action android:name="com.google.android.c2dm.intent.REGISTRATION"/&gt;
+                    &lt;category android:name="YOUR_PACKAGE_NAME"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+    &lt;receiver android:name="com.notikum.notifypassive.receivers.NetworkStateChangeReceiver"&gt;
+           &lt;intent-filter &gt;
+                &lt;action android:name="android.net.conn.CONNECTIVITY_CHANGE"/&gt;
+           &lt;/intent-filter&gt;
+    &lt;/receiver&gt;
+
+    &lt;service android:name="com.notikum.notifypassive.services.GCMIntentService"&gt;&lt;/service&gt;
+        &lt;service android:name="com.notikum.notifypassive.services.NotiphiService"&gt;&lt;/service&gt;
+    &lt;service android:name="com.notikum.notifypassive.services.GCMInformService"&gt;&lt;/service&gt;
+</code></pre>
+
+<p>Edit the MainActivity, In your main Activity of your application  add this import statement</p>
+
+<pre><code>    import com.notikum.notifypassive.NotiphiSession;
+</code></pre>
+
+<p>Inside the onCreate method of your Main Activity, add the following lines of code.</p>
+
+<pre><code>    Context context = this;         
+    NotiphiSession.init(context);
+</code></pre>
+
+<p>Edit the string.xml: Go to your project's root folder and open res folder. Then open values folder. Here you should find strings.xml file. Add the following line to it.</p>
+
+<pre><code>&lt;string name="notiphi_app_token"&gt;TOKEN_GIVEN_BY_NOTIPHI_SEPARATELY&lt;/string&gt;
+&lt;string name="notiphi_app_secret"&gt;TOKEN_GIVEN_BY_NOTIPHI_SEPARATELY&lt;/string&gt;
+</code></pre>
+
+<p>Set the Icons:  We provide you with a resource file (of our logo) named notiphi_notification_icon.png. Appropriate sized versions should be copied to drawable, drawable-hdpi,drawable-mdpi and drawable-xhdpi folder under your project’s res directory.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p>This library owes its existence to the hard work of Arjun (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), Nagendra (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Abhijith (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>).</p>
+
+<h3>Support or Contact</h3>
+
+<p>Having trouble with integration? Please contact us at <a href="mailto:support@notiphi.com">support@notiphi.com</a> and we’ll help you sort it out in a jiffy.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Notiphi Android SDK maintained by <a href="https://github.com/alokmishra">alokmishra</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
