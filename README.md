@@ -25,8 +25,6 @@ are using Eclipse then you could use the following steps if you are unfamiliar w
 1. Select your project
 2. Copy all the jar file from jars directory and paste it into libs directory of your project
 3. Add "notiphi_app_token" and  notiphi_app_secret provided by us, in string.xml file inside res->values directory of your android project
-4. Copy notiphi_notification_icon.png from each directory in Drawables and paste it into respective each drawable directory of your android project
-5. Copy all xml files from layout folder and paste it into layout folder of your android project
 
 ####Manifest file
 
@@ -123,10 +121,6 @@ The app_token and app_secret is provided by us on registration of your app with 
 <string name="notiphi_app_secret">APP_SECRET_GIVEN_BY_NOTIPHI_SEPARATELY</string>
 ```
 
-#####Set the Icons
-
-We provide you with a resource file (of our logo) named notiphi_notification_icon.png. Appropriate sized versions should be copied to drawable, drawable-hdpi,drawable-mdpi and drawable-xhdpi folder under your project’s res directory.
-
 If there is any doubt, feel free to have a look at the sample apps provided.
 
 #### Capture Event
@@ -164,7 +158,7 @@ GCMRegistrar.register(context, YOUR GCM SENDER ID +","+Constants.GCM_SENDER_ID);
 
 ### Authors and Contributors
 
-This library owes its existence to the hard work of Arjun (@arjunrn) , Nagendra (@sanu-nagendra), and Abhijith (@redshift13).
+This library owes its existence to the hard work of Nagendra (@nagendraksrivastava)
 
 ### Support or Contact
 
