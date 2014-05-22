@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				try{
 					JSONObject json = new JSONObject();
-					json.put("name", "Nagendra");
-					json.put("location", " BTM layout ");
+					json.put("name", "Capience");
+					json.put("location", " 18th cross malleshwaram ");
 					new NotiphiEventReceiver(json, getApplicationContext());
 				}catch(Exception ex){
 					ex.printStackTrace();
