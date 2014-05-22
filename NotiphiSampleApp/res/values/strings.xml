@@ -7,5 +7,4 @@
 	
      <string name="notiphi_app_secret"></string>
     <string name="notiphi_app_token"></string>
-    <string name="vendor_gcm_sender_id" translatable="false">865657230032</string>
 </resources>
